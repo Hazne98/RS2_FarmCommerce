@@ -1,4 +1,5 @@
 ﻿using FarmCommerce.Model;
+using FarmCommerce.Services.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,11 @@ namespace FarmCommerce.Services
 {
     public class ProizvodiService : IProizvodiService
     {
-        List<Proizvodi> proizvodis = new List<Proizvodi>()
+        Rs2farmCommerceContext _context;
+        public ProizvodiService(Rs2farmCommerceContext context) {
+            _context = context;
+        }
+        List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
         { 
             new Proizvodi()
             {
@@ -17,8 +22,9 @@ namespace FarmCommerce.Services
                 Naziv = "Laptop"
             }
         };
-        public IList<Proizvodi> Get()
+        public IList<Model.Proizvodi> Get()
         {
+            var list = _context.Proizvods.ToList();
             return proizvodis;
         }
     }
