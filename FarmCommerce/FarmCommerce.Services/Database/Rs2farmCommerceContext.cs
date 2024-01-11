@@ -60,7 +60,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Dostava");
 
             entity.Property(e => e.DostavaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("DostavaID");
             entity.Property(e => e.LokacijaFirmeId).HasColumnName("LokacijaFirmeID");
             entity.Property(e => e.NarudzbaProizvodaId).HasColumnName("NarudzbaProizvodaID");
@@ -83,7 +83,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Favoriti");
 
             entity.Property(e => e.FavoritiId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("FavoritiID");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
             entity.Property(e => e.ProizvodId).HasColumnName("ProizvodID");
@@ -105,7 +105,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Firma");
 
             entity.Property(e => e.FirmaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("FirmaID");
             entity.Property(e => e.Adresa).HasMaxLength(255);
             entity.Property(e => e.Email).HasMaxLength(100);
@@ -137,7 +137,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("KorisniciUloge");
 
             entity.Property(e => e.KorisnikUlogaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("KorisnikUlogaID");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
             entity.Property(e => e.UlogaId).HasColumnName("UlogaID");
@@ -160,7 +160,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.HasIndex(e => e.Email, "UQ__Korisnik__A9D1053447C972BD").IsUnique();
 
             entity.Property(e => e.KorisnikId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("KorisnikID");
             entity.Property(e => e.Adresa).HasMaxLength(255);
             entity.Property(e => e.Drzava).HasMaxLength(50);
@@ -180,7 +180,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Kosarica");
 
             entity.Property(e => e.KosaricaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("KosaricaID");
             entity.Property(e => e.DatumDodavanja).HasColumnType("datetime");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
@@ -197,7 +197,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("LokacijaFirme");
 
             entity.Property(e => e.LokacijaFirmeId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("LokacijaFirmeID");
             entity.Property(e => e.Adresa).HasMaxLength(255);
             entity.Property(e => e.Drzava).HasMaxLength(50);
@@ -215,7 +215,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.HasKey(e => e.NarudzbaProizvodaId).HasName("PK__Narudzba__F2AB4462629E067D");
 
             entity.Property(e => e.NarudzbaProizvodaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("NarudzbaProizvodaID");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
             entity.Property(e => e.LokacijaFirmeId).HasColumnName("LokacijaFirmeID");
@@ -243,7 +243,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Oprema");
 
             entity.Property(e => e.OpremaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("OpremaID");
             entity.Property(e => e.Cena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.FirmaId).HasColumnName("FirmaID");
@@ -274,7 +274,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Placanje");
 
             entity.Property(e => e.PlacanjeId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("PlacanjeID");
             entity.Property(e => e.NarudzbaProizvodaId).HasColumnName("NarudzbaProizvodaID");
             entity.Property(e => e.RezervacijaOpremeId).HasColumnName("RezervacijaOpremeID");
@@ -298,7 +298,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Proizvod");
 
             entity.Property(e => e.ProizvodId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("ProizvodID");
             entity.Property(e => e.Cena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.FirmaId).HasColumnName("FirmaID");
@@ -319,7 +319,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("Recenzija");
 
             entity.Property(e => e.RecenzijaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("RecenzijaID");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
             entity.Property(e => e.ProizvodId).HasColumnName("ProizvodID");
@@ -345,7 +345,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("RezervacijaOpreme");
 
             entity.Property(e => e.RezervacijaOpremeId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("RezervacijaOpremeID");
             entity.Property(e => e.DatumRezervacije).HasColumnType("datetime");
             entity.Property(e => e.KorisnikId).HasColumnName("KorisnikID");
@@ -375,7 +375,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.ToTable("StavkaKosarice");
 
             entity.Property(e => e.StavkaKosariceId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("StavkaKosariceID");
             entity.Property(e => e.KosaricaId).HasColumnName("KosaricaID");
             entity.Property(e => e.ProizvodId).HasColumnName("ProizvodID");
@@ -398,7 +398,7 @@ public partial class Rs2farmCommerceContext : DbContext
             entity.HasIndex(e => e.Naziv, "UQ__Uloge__603E814696D2B7DB").IsUnique();
 
             entity.Property(e => e.UlogaId)
-                .ValueGeneratedNever()
+                .ValueGeneratedOnAdd()
                 .HasColumnName("UlogaID");
             entity.Property(e => e.Naziv).HasMaxLength(50);
         });

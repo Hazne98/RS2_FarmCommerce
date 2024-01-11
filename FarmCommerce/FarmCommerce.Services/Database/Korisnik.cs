@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmCommerce.Services.Database;
 
@@ -24,6 +25,8 @@ public partial class Korisnik
     public string? Drzava { get; set; }
 
     public string? PostanskiBroj { get; set; }
+    public string? LozinkaHash { get; set; }
+    public string? LozinkaSalt { get; set; }
 
     public virtual ICollection<Favoriti> Favoritis { get; } = new List<Favoriti>();
 
