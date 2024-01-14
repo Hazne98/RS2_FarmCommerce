@@ -1,5 +1,8 @@
-﻿using FarmCommerce.Model;
+﻿using AutoMapper;
+using FarmCommerce.Model;
+using FarmCommerce.Model.SearchObjects;
 using FarmCommerce.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +11,12 @@ using System.Threading.Tasks;
 
 namespace FarmCommerce.Services
 {
-    public class ProizvodiService : IProizvodiService
+    public class ProizvodiService : BaseService<Model.Proizvodi, Database.Proizvod, ProizvodSearchObject>, IProizvodiService
     {
-        Rs2farmCommerceContext _context;
-        public ProizvodiService(Rs2farmCommerceContext context) {
-            _context = context;
-        }
-        List<Model.Proizvodi> proizvodis = new List<Model.Proizvodi>()
-        { 
-            new Proizvodi()
-            {
-                ProizvodId = 1,
-                Naziv = "Laptop"
-            }
-        };
-        public IList<Model.Proizvodi> Get()
+        public ProizvodiService(Rs2farmCommerceContext context, IMapper mapper)
+            : base(context, mapper) 
         {
-            var list = _context.Proizvods.ToList();
-            return proizvodis;
+
         }
     }
 }

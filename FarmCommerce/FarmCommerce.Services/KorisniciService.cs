@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using FarmCommerce.Model.Requests;
+using FarmCommerce.Model.SearchRequests;
 using FarmCommerce.Services.Database;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,18 +12,19 @@ using System.Threading.Tasks;
 
 namespace FarmCommerce.Services
 {
-    public class KorisniciService : IKorisniciService
+    public class KorisniciService : BaseService<Model.Korisnik, Database.Korisnik, KorisnikSearchObject>, IKorisniciService
     {
         private readonly Rs2farmCommerceContext _context;
         public IMapper _mapper { get; set; }
         public KorisniciService(Rs2farmCommerceContext context, IMapper mapper)
+            : base(context, mapper)
         {
             _context = context;
             _mapper = mapper;
         }
-        public List<Model.Korisnik> Get()
+        public async Task<List<Model.Korisnik>> Get()
         {
-            var entityList = _context.Korisniks.ToList();
+            var entityList = await _context.Korisniks.ToListAsync();
 
             //var list = new List<Model.Korisnik>();            Automapper zamjeni ove linije koda
             //foreach (var item in entityList)

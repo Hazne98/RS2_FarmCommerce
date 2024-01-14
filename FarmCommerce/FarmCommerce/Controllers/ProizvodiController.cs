@@ -1,4 +1,5 @@
 using FarmCommerce.Model;
+using FarmCommerce.Model.SearchObjects;
 using FarmCommerce.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,20 +7,12 @@ namespace FarmCommerce.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProizvodiController : ControllerBase
+    public class ProizvodiController : BaseController<Model.Proizvodi, ProizvodSearchObject>
     {
-      
-        private readonly IProizvodiService _proizvodiService;
+        public ProizvodiController(ILogger<BaseController<Proizvodi, ProizvodSearchObject>> logger, IService<Proizvodi, ProizvodSearchObject> service)
+        : base(logger, service)
+        { 
 
-        public ProizvodiController(IProizvodiService proizvodiService)
-        {
-            _proizvodiService = proizvodiService;
-        }
-
-        [HttpGet()]
-        public IEnumerable<Proizvodi> Get()
-        {
-            return _proizvodiService.Get();
         }
     }
 }

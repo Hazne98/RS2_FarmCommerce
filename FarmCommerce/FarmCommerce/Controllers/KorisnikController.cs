@@ -18,9 +18,15 @@ namespace FarmCommerce.Controllers
         }
 
         [HttpGet()]
-        public IEnumerable<Model.Korisnik> Get()
+        public async Task<IEnumerable<Model.Korisnik>> Get()
         {
-            return _service.Get();
+            return await _service.Get();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<Model.Korisnik> GetById(int id)
+        {
+            return await _service.GetById(id);
         }
 
         [HttpPost]
