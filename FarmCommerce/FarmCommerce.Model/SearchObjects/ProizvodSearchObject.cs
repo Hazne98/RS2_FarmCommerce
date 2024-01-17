@@ -9,6 +9,7 @@ namespace FarmCommerce.Model.SearchObjects
 {
     public class ProizvodSearchObject : BaseSearchObject
     {
-            public string? Naziv { get; set; }
+        public string? Naziv { get; set; }
+        public string? FTS { get; set; }
     }
 }

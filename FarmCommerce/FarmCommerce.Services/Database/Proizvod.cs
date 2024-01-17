@@ -16,6 +16,7 @@ public partial class Proizvod
     public string? SlikaUrl { get; set; }
 
     public int? FirmaId { get; set; }
+    public string? StateMachine { get; set; }
 
     public virtual ICollection<Favoriti> Favoritis { get; } = new List<Favoriti>();
 

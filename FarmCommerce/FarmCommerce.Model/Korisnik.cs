@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FarmCommerce.Model
 {
-    public class Korisnik
+    public partial class Korisnik
     {
         public int KorisnikId { get; set; }
 
@@ -25,6 +25,10 @@ namespace FarmCommerce.Model
         public string? Drzava { get; set; }
 
         public string? PostanskiBroj { get; set; }
+
         public string? Lozinka { get; set; }
+
+        public virtual ICollection<KorisniciUloge> KorisniciUloges { get; } = new List<KorisniciUloge>();
+
     }
 }

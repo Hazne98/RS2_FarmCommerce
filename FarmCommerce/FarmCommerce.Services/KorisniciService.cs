@@ -12,58 +12,19 @@ using System.Threading.Tasks;
 
 namespace FarmCommerce.Services
 {
-    public class KorisniciService : BaseService<Model.Korisnik, Database.Korisnik, KorisnikSearchObject>, IKorisniciService
+    public class KorisniciService : BaseCRUDService<Model.Korisnik, Database.Korisnik, KorisnikSearchObject, KorisnikInsertRequest, KorisnikUpdateRequest>, IKorisniciService
     {
-        private readonly Rs2farmCommerceContext _context;
-        public IMapper _mapper { get; set; }
+
         public KorisniciService(Rs2farmCommerceContext context, IMapper mapper)
             : base(context, mapper)
         {
-            _context = context;
-            _mapper = mapper;
-        }
-        public async Task<List<Model.Korisnik>> Get()
-        {
-            var entityList = await _context.Korisniks.ToListAsync();
-
-            //var list = new List<Model.Korisnik>();            Automapper zamjeni ove linije koda
-            //foreach (var item in entityList)
-            //{
-            //    list.Add(new Model.Korisnik()
-            //    {
-            //        Email = item.Email,
-            //        Ime = item.Ime,
-            //        Prezime = item.Prezime,
-            //        PostanskiBroj = item.PostanskiBroj,
-            //        Telefon = item.Telefon,
-            //        Drzava = item.Drzava,
-            //        Grad = item.Grad,
-            //        Adresa = item.Adresa
-            //    });
-            //}
-            //return list;
-            return _mapper.Map<List<Model.Korisnik>>(entityList);
         }
 
-        public Model.Korisnik Insert(KorisnikInsertRequest request)
+        public override async Task BeforeInsert(Korisnik entity, KorisnikInsertRequest insert)
         {
-            var entity = new Korisnik();
-            _mapper.Map(request, entity);
-
             entity.LozinkaSalt = GenerateSalt();
-            entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, request.Lozinka);
-
-            _context.Korisniks.Add(entity);
-            _context.SaveChanges();
-
-            return _mapper.Map<Model.Korisnik>(entity);
+            entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, insert.Lozinka);
         }
-
-        //public override async Task BeforeInsert(Korisnik entity, KorisnikInsertRequest insert)
-        //{
-        //    entity.LozinkaSalt = GenerateSalt();
-        //    entity.LozinkaHash = GenerateHash(entity.LozinkaSalt, insert.Lozinka);
-        //}
 
         public static string GenerateSalt()
         {
@@ -88,14 +49,13 @@ namespace FarmCommerce.Services
             return Convert.ToBase64String(inArray);
         }
 
-        public Model.Korisnik Update(int id, KorisnikUpdateRequest request)
+        public override IQueryable<Korisnik> AddInclude(IQueryable<Korisnik> query, KorisnikSearchObject? search = null)
         {
-            var entity = _context.Korisniks.Find(id);
-
-            _mapper.Map(request, entity);
-
-            _context.SaveChanges();
-            return _mapper.Map<Model.Korisnik>(entity);
+            if (search?.IsUlogeIncluded == true)
+            {
+                query = query.Include("KorisniciUloges.Uloga");
+            }
+            return base.AddInclude(query, search);
         }
     }
 }

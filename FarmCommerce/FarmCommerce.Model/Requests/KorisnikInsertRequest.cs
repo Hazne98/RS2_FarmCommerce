@@ -19,6 +19,6 @@ namespace FarmCommerce.Model.Requests
 
         public string Grad { get; set; } = null!;
 
-        public string Lozinka { get; set; }
+        public string? Lozinka { get; set; }
     }
 }

@@ -11,5 +11,6 @@ namespace FarmCommerce.Model.SearchRequests
         public string? Ime { get; set; }
         public string? Prezime { get; set; }
         public string? Email { get; set; }
+        public bool? IsUlogeIncluded { get; set; }
     }
 }

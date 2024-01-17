@@ -1,44 +1,26 @@
 using FarmCommerce.Model;
 using FarmCommerce.Model.Requests;
+using FarmCommerce.Model.SearchObjects;
+using FarmCommerce.Model.SearchRequests;
 using FarmCommerce.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace FarmCommerce.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class KorisnikController : ControllerBase
+    public class KorisnikController : BaseCRUDController<Model.Korisnik, KorisnikSearchObject, KorisnikInsertRequest, KorisnikUpdateRequest>
     {
-
-        private readonly IKorisniciService _service;
-
-        public KorisnikController(IKorisniciService service)
+        public KorisnikController(ILogger<BaseController<Model.Korisnik, KorisnikSearchObject>> logger, IKorisniciService service)
+            : base(logger, service)
         {
-            _service = service;
         }
 
-        [HttpGet()]
-        public async Task<IEnumerable<Model.Korisnik>> Get()
+        public override Task<Model.Korisnik> Insert([FromBody] KorisnikInsertRequest insert)
         {
-            return await _service.Get();
-        }
-
-        [HttpGet("{id}")]
-        public async Task<Model.Korisnik> GetById(int id)
-        {
-            return await _service.GetById(id);
-        }
-
-        [HttpPost]
-        public Model.Korisnik Insert(KorisnikInsertRequest request)
-        {
-            return _service.Insert(request);
-        }
-
-        [HttpPut()]
-        public Model.Korisnik Update(int id, KorisnikUpdateRequest request)
-        {
-            return _service.Update(id, request);
+            return base.Insert(insert);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace FarmCommerce.Services
 {
     public class BaseService<T, TDb, TSearch> : IService<T, TSearch> where TDb : class where T : class where TSearch : BaseSearchObject
     {
-        private readonly Rs2farmCommerceContext _context;
+        protected readonly Rs2farmCommerceContext _context;
         public IMapper _mapper { get; set; }
         public BaseService(Rs2farmCommerceContext context, IMapper mapper)
         {

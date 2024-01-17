@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace FarmCommerce.Services
 {
-    public interface IKorisniciService : IService<Model.Korisnik, KorisnikSearchObject>
+    public interface IKorisniciService : ICRUDService<Model.Korisnik, KorisnikSearchObject, KorisnikInsertRequest, KorisnikUpdateRequest>
     {
-        Task<List<Model.Korisnik>> Get();
-        Model.Korisnik Insert(KorisnikInsertRequest request);
-        Model.Korisnik Update(int id, KorisnikUpdateRequest request);
     }
 }
