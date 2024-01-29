@@ -18,6 +18,7 @@ namespace FarmCommerce.Controllers
         {
         }
 
+        [Authorize(Roles = "Administrator")]
         public override Task<Model.Korisnik> Insert([FromBody] KorisnikInsertRequest insert)
         {
             return base.Insert(insert);

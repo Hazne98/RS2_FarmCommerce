@@ -57,5 +57,23 @@ namespace FarmCommerce.Services
             }
             return base.AddInclude(query, search);
         }
+
+        public Model.Korisnik Login(string username, string password)
+        {
+            var entity = _context.Korisniks.Include("KorisniciUloges.Uloga").FirstOrDefault(x => x.Ime == username);
+            if (entity == null)
+            {
+                return null;
+            }
+
+            var hash = GenerateHash(entity.LozinkaSalt, password);
+
+            if (hash != entity.LozinkaHash)
+            {
+                return null;
+            }
+
+            return _mapper.Map<Model.Korisnik>(entity);
+        }
     }
 }

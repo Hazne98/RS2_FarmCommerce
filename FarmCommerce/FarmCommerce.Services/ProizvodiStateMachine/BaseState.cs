@@ -54,6 +54,7 @@ namespace FarmCommerce.Services.ProizvodiStateMachine
             switch (stateName)
             {
                 case "initial":
+                case null:
                     return _serviceProvider.GetService<InitialProductState>();
                     break;
                 case "draft":
@@ -64,7 +65,7 @@ namespace FarmCommerce.Services.ProizvodiStateMachine
                     break;
 
                 default:
-                    throw new Exception("Not allowed");
+                    throw new UserException("Not allowed");
             }
         }
 

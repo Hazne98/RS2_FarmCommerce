@@ -22,7 +22,7 @@ namespace FarmCommerce.Services.ProizvodiStateMachine
 
         public override async Task<Proizvodi> Hide(int id)
         {
-            var set = _context.Set<Database.Proizvod>();
+            var set = _context.Set<Proizvod>();
 
             var entity = await set.FindAsync(id);
 

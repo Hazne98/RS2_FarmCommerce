@@ -1,5 +1,6 @@
 ﻿using FarmCommerce.Model;
 using FarmCommerce.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,6 +8,7 @@ namespace FarmCommerce.Controllers
 {
     //API CONTORLLER se nalazi direkt na odredjenom kontroleru
     [Route("[controller]")]
+    [Authorize]
     public class BaseController<T, TSearch> : ControllerBase where T : class where TSearch : class
     {
         protected readonly IService<T, TSearch> _service;

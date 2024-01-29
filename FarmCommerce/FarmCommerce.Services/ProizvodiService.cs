@@ -75,9 +75,7 @@ namespace FarmCommerce.Services
         public async Task<List<string>> AllowedActions(int id)
         {
             var entity = await _context.Proizvods.FindAsync(id);
-
             var state = _baseState.CreateState(entity?.StateMachine ?? "initial");
-
             return await state.AllowedActions();
         }
     }

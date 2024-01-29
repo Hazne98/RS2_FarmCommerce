@@ -10,5 +10,6 @@ namespace FarmCommerce.Services
 {
     public interface IKorisniciService : ICRUDService<Model.Korisnik, KorisnikSearchObject, KorisnikInsertRequest, KorisnikUpdateRequest>
     {
+        public Model.Korisnik Login(string username, string password);
     }
 }
