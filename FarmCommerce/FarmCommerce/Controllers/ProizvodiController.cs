@@ -2,12 +2,14 @@ using FarmCommerce.Model;
 using FarmCommerce.Model.Requests;
 using FarmCommerce.Model.SearchObjects;
 using FarmCommerce.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FarmCommerce.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [AllowAnonymous]
     public class ProizvodiController : BaseCRUDController<Model.Proizvodi, ProizvodSearchObject, ProizvodInsertRequest, ProizvodUpdateRequest>
     {
         public ProizvodiController(ILogger<BaseController<Proizvodi, ProizvodSearchObject>> logger, IProizvodiService service)
