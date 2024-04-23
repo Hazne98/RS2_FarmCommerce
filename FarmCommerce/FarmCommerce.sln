@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCommerce.Model", "FarmC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCommerce.Services", "FarmCommerce.Services\FarmCommerce.Services.csproj", "{FD4850E5-6E88-4C8A-8CF5-0B65338F84F2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmCommerce.Subscriber", "FarmCommerce.Subscriber\FarmCommerce.Subscriber.csproj", "{E017CDF9-44EB-4419-9653-131CCB962332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmCommerce.Subscriber", "FarmCommerce.Subscriber\FarmCommerce.Subscriber.csproj", "{E017CDF9-44EB-4419-9653-131CCB962332}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0A603E0A-40EC-4C19-98E6-AAD07FD810F8}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
