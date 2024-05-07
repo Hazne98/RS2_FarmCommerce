@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'package:farmcommerce_admin/providers/product_provider.dart';
+import 'package:farmcommerce_admin/utils/util.dart';
+import 'package:provider/provider.dart';
+
+import './screens/product_list_screen.dart';
+
 void main() {
-  runApp(const MyMaterialApp());
+  runApp(MultiProvider(
+    providers: [ChangeNotifierProvider(create: (_) => ProductProvider())],
+    child: const MyMaterialApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -40,7 +49,7 @@ class MyAppBar extends StatelessWidget {
 }
 
 class Counter extends StatefulWidget {
-  const Counter({Key? key}) : super(key: key);
+  const Counter({super.key});
 
   @override
   State<Counter> createState() => _CounterState();
@@ -87,8 +96,8 @@ class LayoutExamples extends StatelessWidget {
             child: Container(
               height: 100,
               color: Colors.blue,
-              child: Text("Example text"),
               alignment: Alignment.bottomLeft,
+              child: Text("Example text"),
             ),
           ),
         ),
@@ -103,8 +112,8 @@ class LayoutExamples extends StatelessWidget {
         Container(
           height: 150,
           color: Colors.red,
-          child: Text("Contain"),
           alignment: Alignment.center,
+          child: Text("Contain"),
         )
       ],
     );
@@ -125,10 +134,15 @@ class MyMaterialApp extends StatelessWidget {
 }
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+  LoginPage({super.key});
+
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  late ProductProvider _productProvider;
 
   @override
   Widget build(BuildContext context) {
+    _productProvider = context.read<ProductProvider>();
     return Scaffold(
       appBar: AppBar(
         title: Text("Login", style: TextStyle(color: Colors.white),),
@@ -141,24 +155,59 @@ class LoginPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(children: [
-                Image.network("https://www.fit.ba/content/public/images/og-image.jpg", height: 100, width: 100,),
+                Image.asset(
+                  "assets/logo.jpg",
+                  height: 100,
+                  width: 100,
+                ),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: "Username",
-                    prefixIcon: Icon(Icons.email)
-                  ),
+                    labelText: "Username", prefixIcon: Icon(Icons.email)),
+                  controller: _usernameController,
                 ),
-                SizedBox(height: 8,),
+                SizedBox(
+                  height: 8,
+                ),
                 TextField(
                   decoration: InputDecoration(
-                    labelText: "Password",
-                    prefixIcon: Icon(Icons.password)
-                  ),
+                    labelText: "Password", prefixIcon: Icon(Icons.password)),
+                  controller: _passwordController,
                 ),
-                SizedBox(height: 8,),
-                ElevatedButton(onPressed: () {
-                    print("login proceed");
-                }, child: Text("Login"))
+                SizedBox(
+                  height: 8,
+                ),
+                ElevatedButton(
+                    onPressed: () async {
+                      var username = _usernameController.text;
+                      var password = _passwordController.text;
+                      _passwordController.text = username;
+
+                      print("login proceed $username $password");
+
+                      Authorization.username = username;
+                      Authorization.password = password;
+
+                      try {
+                        await _productProvider.get();
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const ProductListScreen(),
+                          ),
+                        );
+                      } on Exception catch (e) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: Text("Error"),
+                              content: Text(e.toString()),
+                              actions: [
+                                TextButton(onPressed: () => Navigator.pop(context), child: Text("OK"))
+                              ],
+                            ));
+                      }
+                    },
+                    child: Text("Login"))
               ]),
             ),
           ),
