@@ -2,12 +2,11 @@ import 'package:farmcommerce_admin/providers/product_provider.dart';
 import 'package:farmcommerce_admin/widgets/master_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({Key? key}) : super(key: key);
+  const ProductListScreen({super.key});
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
@@ -40,7 +39,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 // Navigator.of(context).pop();
 
                 var data = await _productProvider.get();
-                print("data: ${data['result'][0]['naziv']}");
+                print("data: ${data.result[0].naziv}");
               },
               child: Text("Login"))
         ]),

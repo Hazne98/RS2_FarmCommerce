@@ -11,7 +11,7 @@ class MasterScreenWidget extends StatefulWidget {
   String? title;
   Widget? title_widget;
 
-  MasterScreenWidget({this.child, this.title, this.title_widget, Key? key}) : super(key: key);
+  MasterScreenWidget({this.child, this.title, this.title_widget, super.key});
 
   @override
   State<MasterScreenWidget> createState() => _MasterScreenWidgetState();
@@ -52,7 +52,7 @@ class _MasterScreenWidgetState extends State<MasterScreenWidget> {
               onTap: () {
                 Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => const ProductDetailScreen(),
+                          builder: (context) => ProductDetailScreen(),
                         ),
                       );
               },

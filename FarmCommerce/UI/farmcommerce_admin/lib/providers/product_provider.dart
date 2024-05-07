@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:farmcommerce_admin/models/product.dart';
+import 'package:farmcommerce_admin/models/search_result.dart';
 import 'package:farmcommerce_admin/utils/util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +16,7 @@ class ProductProvider with ChangeNotifier {
     _baseUrl = const String.fromEnvironment("baseUrl", defaultValue: "https://localhost:7278/");
   }
 
-  Future<dynamic> get() async {
+  Future<SearchResult<Product>> get({dynamic filter}) async {
     var url = "$_baseUrl$_endpoint";
 
     var uri = Uri.parse(url);
@@ -25,9 +27,19 @@ class ProductProvider with ChangeNotifier {
     if(isValidResponse(response)) {
       var data = jsonDecode(response.body);
 
-      return data;
+      var result = SearchResult<Product>();
+
+      result.count = data['count'];
+
+      for (var item in data['result']) {
+    
+        result.result.add(Product.fromJson(item));
+      }
+
+      return result;
     } else {
-      throw new Exception("Unknown error");
+      print(response.body);
+      throw Exception("Unknown error");
     }
     // print("response: ${response.request} ${response.statusCode}, ${response.body}");
 
@@ -38,9 +50,9 @@ class ProductProvider with ChangeNotifier {
     if (response.statusCode < 299) {
       return true;
     } else if (response.statusCode == 401) {
-        throw new Exception("Unauthorized");
+        throw Exception("Unauthorized");
     } else {
-      throw new Exception("Something bad happened please try again");
+      throw Exception("Something bad happened please try again");
     }
   }
 
