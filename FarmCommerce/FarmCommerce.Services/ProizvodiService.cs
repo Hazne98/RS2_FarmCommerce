@@ -25,17 +25,19 @@ namespace FarmCommerce.Services
 
         public override IQueryable<Database.Proizvod> AddFilter(IQueryable<Database.Proizvod> query, ProizvodSearchObject? search = null)
         {
-            if (!string.IsNullOrWhiteSpace(search?.Naziv))
-            {
-                query = query.Where(x => x.Naziv.StartsWith(search.Naziv));
-            }
+            var filteredQuery = base.AddFilter(query, search);
 
             if (!string.IsNullOrWhiteSpace(search?.FTS))
             {
-                query = query.Where(x => x.Naziv.Contains(search.FTS));
+                filteredQuery = filteredQuery.Where(x => x.Naziv.Contains(search.FTS) || x.Opis.Contains(search.FTS));
             }
 
-            return base.AddFilter(query, search);
+            if (!string.IsNullOrWhiteSpace(search?.Naziv))
+            {
+                filteredQuery = filteredQuery.Where(x => x.Naziv == search.Naziv);
+            }
+
+            return filteredQuery;
         }
 
         public override Task<Model.Proizvodi> Insert(ProizvodInsertRequest insert)
