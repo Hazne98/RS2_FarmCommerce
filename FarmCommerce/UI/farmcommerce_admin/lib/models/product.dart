@@ -9,7 +9,8 @@ class Product {
   String? opis;
   double? cena;
   String? slikaUrl;
-  Product(this.proizvodId, this.naziv, this.opis, this.cena, this.slikaUrl);
+  int? firmaId;
+  Product(this.proizvodId, this.naziv, this.opis, this.cena, this.slikaUrl, this.firmaId);
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$UserFromJson()` constructor.

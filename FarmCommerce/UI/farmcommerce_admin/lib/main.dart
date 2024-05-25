@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:farmcommerce_admin/providers/firma_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:farmcommerce_admin/providers/product_provider.dart';
@@ -7,8 +10,12 @@ import 'package:provider/provider.dart';
 import './screens/product_list_screen.dart';
 
 void main() {
+  HttpOverrides.global = new MyHttpOverrides();
   runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (_) => ProductProvider())],
+    providers: [
+      ChangeNotifierProvider(create: (_) => ProductProvider()),
+      ChangeNotifierProvider(create: (_) => FirmaProvider()),
+    ],
     child: const MyMaterialApp(),
   ));
 }
@@ -133,6 +140,7 @@ class MyMaterialApp extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
 
@@ -199,12 +207,14 @@ class LoginPage extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                              title: Text("Error"),
-                              content: Text(e.toString()),
-                              actions: [
-                                TextButton(onPressed: () => Navigator.pop(context), child: Text("OK"))
-                              ],
-                            ));
+                               title: Text("Error"),
+                                  content: Text(e.toString()),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: Text("OK"))
+                                  ],
+                                ));
                       }
                     },
                     child: Text("Login"))
@@ -214,5 +224,13 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+   class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

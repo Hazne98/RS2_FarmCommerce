@@ -19,6 +19,10 @@ namespace FarmCommerce.Services
             CreateMap<Model.Requests.ProizvodInsertRequest, Database.Proizvod>();
             CreateMap<Model.Requests.ProizvodUpdateRequest, Database.Proizvod>();
 
+            CreateMap<Database.Firma, Model.Firma>();
+            CreateMap<Model.Requests.FirmaInsertRequest, Database.Firma>();
+            CreateMap<Model.Requests.FirmaUpdateRequest, Database.Firma>();
+
             CreateMap<Database.KorisniciUloge, Model.KorisniciUloge>();
             CreateMap<Database.Uloge, Model.Uloge>();
         }

@@ -2,11 +2,8 @@ import 'package:farmcommerce_admin/models/search_result.dart';
 import 'package:farmcommerce_admin/providers/product_provider.dart';
 import 'package:farmcommerce_admin/screens/product_detail_screen.dart';
 import 'package:farmcommerce_admin/widgets/master_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:provider/provider.dart';
-
 import '../models/product.dart';
 import '../utils/util.dart';
 
@@ -79,7 +76,22 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
                 // print("data: ${data.result[0].naziv}");
               },
-              child: Text("Pretraga"))
+              child: Text("Pretraga")),
+          SizedBox(
+            width: 8,
+          ),
+          ElevatedButton(
+              onPressed: () async {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProductDetailScreen(
+                      product: null,
+                    ),
+                  ),
+                );
+                // print("data: ${data.result[0].naziv}");
+              },
+              child: Text("Dodaj"))
         ],
       ),
     );
@@ -90,8 +102,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
         child: SingleChildScrollView(
       child: DataTable(
 
-          columns: [
-            const DataColumn(
+          columns: const [
+            DataColumn(
               label: Expanded(
                 child: Text(
                   'ID',
@@ -99,7 +111,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ),
               ),
             ),
-            const DataColumn(
+            DataColumn(
               label: Expanded(
                 child: Text(
                   'Sifra',
@@ -107,7 +119,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ),
               ),
             ),
-            const DataColumn(
+            DataColumn(
               label: Expanded(
                 child: Text(
                   'Naziv',
@@ -115,10 +127,18 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ),
               ),
             ),
-            const DataColumn(
+            DataColumn(
               label: Expanded(
                 child: Text(
                   'Cijena',
+                  style: TextStyle(fontStyle: FontStyle.italic),
+                ),
+              ),
+            ),
+            DataColumn(
+              label: Expanded(
+                child: Text(
+                  'Firma',
                   style: TextStyle(fontStyle: FontStyle.italic),
                 ),
               ),
@@ -133,28 +153,34 @@ class _ProductListScreenState extends State<ProductListScreen> {
             // )
           ],
           rows: result?.result
-                  .map((Product e) => DataRow(onSelectChanged: (selected) => {
-                    if(selected == true) {
-
-                       Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ProductDetailScreen(product: e,),
-                          ),
-                        )
-                    }
-                  },cells: [
-                        DataCell(Text(e.proizvodId?.toString() ?? "")),
-                        DataCell(Text(e.opis ?? "")),
-                        DataCell(Text(e.naziv ?? "")),
-                        DataCell(Text(formatNumber(e.cena))),
-                        // DataCell(e.slikaUrl != ""
-                        //     ? Container(
-                        //         width: 100,
-                        //         height: 100,
-                        //         child: imageFromBase64String(e.slikaUrl!),
-                        //       )
-                        //     : Text(""))
-                      ]))
+                  .map((Product e) => DataRow(
+                          onSelectChanged: (selected) => {
+                                if (selected == true)
+                                  {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductDetailScreen(
+                                          product: e,
+                                        ),
+                                      ),
+                                    )
+                                  }
+                              },
+                          cells: [
+                            DataCell(Text(e.proizvodId?.toString() ?? "")),
+                            DataCell(Text(e.naziv ?? "")),
+                            DataCell(Text(e.opis ?? "")),
+                            DataCell(Text(formatNumber(e.cena))),
+                            DataCell(Text(e.firmaId?.toString() ?? "")),
+                            // DataCell(e.slikaUrl != ""
+                            //     ? Container(
+                            //         width: 100,
+                            //         height: 100,
+                            //         child: imageFromBase64String(e.slikaUrl!),
+                            //       )
+                            //     : Text(""))
+                          ]))
                   .toList() ??
               []),
     ));

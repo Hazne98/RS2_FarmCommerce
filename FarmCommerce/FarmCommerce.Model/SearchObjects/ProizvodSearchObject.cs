@@ -11,5 +11,6 @@ namespace FarmCommerce.Model.SearchObjects
     {
         public string? Naziv { get; set; }
         public string? FTS { get; set; }
+
     }
 }

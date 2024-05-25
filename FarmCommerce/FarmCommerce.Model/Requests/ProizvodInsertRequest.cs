@@ -18,7 +18,7 @@ namespace FarmCommerce.Model.Requests
 
         public string? SlikaUrl { get; set; }
 
-        //public int? FirmaId { get; set; }
+        public int? FirmaId { get; set; }
 
     }
 }

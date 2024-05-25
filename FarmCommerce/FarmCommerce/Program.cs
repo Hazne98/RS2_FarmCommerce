@@ -15,6 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<IProizvodiService, ProizvodiService>();
 builder.Services.AddTransient<IKorisniciService, KorisniciService>();
+builder.Services.AddTransient<IFirmaService, FirmaService>();
 builder.Services.AddTransient<IService<FarmCommerce.Model.Proizvodi,ProizvodSearchObject>, ProizvodiService>();
 //builder.Services.AddTransient<IService<FarmCommerce.Model.Proizvodi>, BaseService<FarmCommerce.Model.Proizvodi, FarmCommerce.Services.Database.Proizvod>();
 //NE TREBAMO DA PRAVIMO NI INTERFACE NI SERVICE, URADITI OVAKO ILI NAPRAVIT PRAZAN INTERFACE I SERVICE RADI DALJNJEG RAZVOJA
